@@ -1,0 +1,79 @@
+
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+    <meta charset="UTF-8">
+    <title>Pomodoro Timer</title>
+    <style>
+        body {
+            background-color: #B0CFAc;
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding: 16px;
+            color: #2E4C3A;
+            margin: 0;
+        }
+        h1 {
+            font-size: 20px;
+            margin: 10px 0;
+        }
+        #timer {
+            font-size: 40px;
+            margin: 10px 0 20px;
+            font-weight: bold;
+        }
+        button {
+            background-color: #9EBE98;
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            margin: 6px;
+            font-size: 14px;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        button:hover {
+            background-color: #88AA84;
+        }
+    </style>
+</head>
+<body>
+    <h1>🍅 Pomodoro</h1>
+    <div id="timer">30:00</div>
+    <button onclick="startTimer()">Start</button>
+    <button onclick="resetTimer()">Reset</button>
+
+    <script>
+        let duration = 30 * 60;
+        let timer;
+        let timeLeft = duration;
+
+        function updateDisplay() {
+            const minutes = String(Math.floor(timeLeft / 60)).padStart(2, '0');
+            const seconds = String(timeLeft % 60).padStart(2, '0');
+            document.getElementById('timer').textContent = `${minutes}:${seconds}`;
+        }
+
+        function startTimer() {
+            clearInterval(timer);
+            timer = setInterval(() => {
+                if (timeLeft > 0) {
+                    timeLeft--;
+                    updateDisplay();
+                } else {
+                    clearInterval(timer);
+                    alert("⏰ Hết giờ! Nghỉ thôi.");
+                }
+            }, 1000);
+        }
+
+        function resetTimer() {
+            clearInterval(timer);
+            timeLeft = duration;
+            updateDisplay();
+        }
+
+        updateDisplay();
+    </script>
+</body>
+</html>
